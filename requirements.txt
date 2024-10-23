@@ -1,0 +1,7 @@
+django
+djangorestframework 
+mysqlclient
+PyMySQL
+sqlalchemy 
+mariadb
+Werkzeug==2.1.2
