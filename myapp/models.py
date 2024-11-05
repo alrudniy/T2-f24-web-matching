@@ -4,13 +4,14 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from sqlalchemy import create_engine, Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
+import pymysql, sqlalchemy
 
 
 # Define the connection to the MariaDB database
-DATABASE_URI = "mariadb+mariadbconnector://t1:YWQQEg1QwgVTc40K@34.125.69.91/f24_housing_db"
-
-engine = create_engine(DATABASE_URI)
+# DATABASE_URI = "mariadb+mariadbconnector://t1:YWQQEg1QwgVTc40K@34.125.69.91/f24_housing_db" 
+username = 't2'  # Replace with actual username
+password = 'vVpLVI1WJtknBJV0'  # Replace with actual password
+engine = sqlalchemy.create_engine(f"mysql+pymysql://{username}:{password}@34.125.69.91/f24_housing_db", connect_args={'ssl': {'disabled': True}})
 Base = declarative_base()
 
 
