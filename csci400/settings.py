@@ -83,6 +83,9 @@ DATABASES = {
         'PASSWORD': 'YWQQEg1QwgVTc40K',
         'HOST': '34.125.69.91',
         'PORT': '3306',
+       'OPTIONS': {
+           'ssl': {}, # Explicitly pass an empty SSL dictionary
+        },  
     }
 }
 
