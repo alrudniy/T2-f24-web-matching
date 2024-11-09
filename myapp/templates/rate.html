@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate {{ feature }}</title>
+</head>
+<body>
+    <h1>Rate the feature: {{ feature }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="rating">How much do you prioritize this feature?</label><br>
+        <input type="radio" id="very_high" name="rating" value="Very High">
+        <label for="very_high">Very High</label><br>
+        <input type="radio" id="high" name="rating" value="High">
+        <label for="high">High</label><br>
+        <input type="radio" id="medium" name="rating" value="Medium">
+        <label for="medium">Medium</label><br>
+        <input type="radio" id="low" name="rating" value="Low">
+        <label for="low">Low</label><br>
+        <input type="radio" id="no_preference" name="rating" value="No Preference">
+        <label for="no_preference">No Preference</label><br><br>
+
+        <button type="submit">Submit Rating</button>
+    </form>
+    
+    <a href="{% url 'index' %}">Back to the list</a>
+</body>
+</html>

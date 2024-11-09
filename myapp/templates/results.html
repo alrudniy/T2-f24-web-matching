@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Results</title>
+</head>
+<body>
+    <h1>Your House Feature Ratings</h1>
+    <ul>
+        {% for feature, rating in ratings.items %}
+            <li>{{ feature }}: {{ rating }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'index' %}">Go Back</a>
+</body>
+</html>

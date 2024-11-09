@@ -9,4 +9,7 @@ urlpatterns = [
     path('scenario2/', views.scenario2, name='scenario2'),
     path('article1/', views.article1, name='article1'),
     path('logout/', views.logout_view, name='logout'),
+    path('index/', views.index, name='index'),
+    path('rate/<str:feature>/', views.rate_feature, name='rate_feature'),
+    path('results/', views.results, name='results'),
 ]

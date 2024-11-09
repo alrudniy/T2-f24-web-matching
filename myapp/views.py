@@ -97,3 +97,41 @@ def signup_view(request):
         form = CreateUserForm()
 
     return render(request, 'signup.html', {'form': form})
+
+
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+
+# List of house features
+features = [
+    "Number of bedrooms",
+    "Number of bathrooms",
+    "Size of the backyard",
+    "Proximity to public transportation",
+    "Neighborhood safety",
+    "School district quality",
+    "Parking availability",
+    "Kitchen size and layout",
+    "Natural light in the living areas",
+    "Storage space"
+]
+
+# Store ratings in-memory (could use a database later)
+ratings = {}
+
+# Home page displaying all features
+def index(request):
+    return render(request, 'index.html', {'features': features})
+
+# Page to rate a specific feature
+def rate_feature(request, feature):
+    if request.method == 'POST':
+        rating = request.POST.get('rating')
+        ratings[feature] = rating
+        return redirect('index')  # Redirect back to the homepage after rating
+
+    return render(request, 'rate.html', {'feature': feature})
+
+# Results page to display all ratings
+def results(request):
+    return render(request, 'results.html', {'ratings': ratings})
