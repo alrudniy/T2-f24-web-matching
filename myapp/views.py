@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.contrib import messages
 from werkzeug.security import check_password_hash  # Werkzeug for password hashing
 from .models import session, User  # Import SQLAlchemy session and User model
@@ -138,7 +139,7 @@ def rate_feature(request, feature):
         rating = request.POST.get('rating')
         ratings[feature] = rating
         return HttpResponse("Rating submitted")
-    return render(request, 'rate.html', {'feature': feature})
+    return render(request, 'rate_feature.html', {'feature': feature})
 
 # Results page to display all ratings
 def results(request):
