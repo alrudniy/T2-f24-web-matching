@@ -11,7 +11,7 @@
     
     <ul>
         {% for feature in features %}
-            <li><a href="{% url 'rate_feature' feature=feature %}">{{ feature }}</a></li>
+            <li><a href="{% url 'rate_feature' feature %}">{{ feature }}</a></li>
         {% endfor %}
     </ul>
 

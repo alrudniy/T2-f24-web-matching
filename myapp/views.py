@@ -101,18 +101,26 @@ def signup_view(request):
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # List of house features
 features = [
-    "Number of bedrooms",
-    "Number of bathrooms",
-    "Size of the backyard",
-    "Proximity to public transportation",
+    "Balcony",
+    "Multiple floors",
+    "Wheelchair access",
+    "Pet friendly",
+    "Large lot",
+    "Low cost",
+    "Close to shopping",
+    "Close to police station",
+    "Close to hospital",
+    "Close to fire station",
+    "Close to park",
+    "Close to school",
+    "Close to public transportation",
     "Neighborhood safety",
     "School district quality",
     "Parking availability",
-    "Kitchen size and layout",
-    "Natural light in the living areas",
     "Storage space"
 ]
 
@@ -124,12 +132,12 @@ def index(request):
     return render(request, 'index.html', {'features': features})
 
 # Page to rate a specific feature
+@csrf_exempt
 def rate_feature(request, feature):
     if request.method == 'POST':
         rating = request.POST.get('rating')
         ratings[feature] = rating
-        return redirect('index')  # Redirect back to the homepage after rating
-
+        return HttpResponse("Rating submitted")
     return render(request, 'rate.html', {'feature': feature})
 
 # Results page to display all ratings
