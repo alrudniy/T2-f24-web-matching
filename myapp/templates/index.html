@@ -6,6 +6,14 @@
     <title>Rate House Features</title>
 </head>
 <body>
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
     <h1>Rate House Features</h1>
     <p>Please select a feature to rate:</p>
     

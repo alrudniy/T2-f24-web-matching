@@ -138,7 +138,8 @@ def rate_feature(request, feature):
     if request.method == 'POST':
         rating = request.POST.get('rating')
         ratings[feature] = rating
-        return HttpResponse("Rating submitted")
+        messages.success(request, f"Rating for {feature} saved successfully!")
+        return redirect('index')
     return render(request, 'rate_feature.html', {'feature': feature})
 
 # Results page to display all ratings
