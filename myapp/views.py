@@ -13,6 +13,11 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import logging
 logger = logging.getLogger('django')
 
+def user_list(request):
+    users = session.query(User).all()
+    user_dicts = [{col.name: getattr(user, col.name) for col in User.__table__.columns} for user in users]
+    return render(request, 'user_list.html', {'users': user_dicts})
+
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -86,6 +91,7 @@ def signup_view(request):
                 username=form.cleaned_data.get('username'),
                 firstname=form.cleaned_data.get('firstname'),
                 lastname=form.cleaned_data.get('lastname'),
+                user_type = form.cleaned_data.get('user_type'),
                 password=hashed_password  # Store the hashed password
             )
             session.add(user)
