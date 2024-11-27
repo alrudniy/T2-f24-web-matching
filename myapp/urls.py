@@ -13,4 +13,6 @@ urlpatterns = [
     path('login_fp/', views.login_fp_view, name='login_fp'), 
     path('landlord_login/', views.landlord_login_view, name='landlord_login'),
     path('tenant_login/', views.tenant_login_view, name='tenant_login'),
+    path('messages/', views.messages_view, name='messages'),  # New URL route
+    path('send_message/', views.send_message, name='send_message'), # New URL route for sending messages
 ]

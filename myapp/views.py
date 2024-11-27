@@ -110,4 +110,44 @@ def signup_view(request):
     else:
         form = CreateUserForm()
 
+from django.http import HttpResponseRedirect
+from .forms import MessageForm
+from django.contrib.auth import get_user_model
+from .models import Message
+
+User = get_user_model()
+
+@custom_login_required
+def messages_view(request):
+    received_messages = request.user.received_messages.all()
+    sent_messages = request.user.sent_messages.all()
+    message_form = MessageForm(initial={'sender': request.user}) # Initialize the form with current user as sender
+
+    if request.method == 'POST':
+        message_form = MessageForm(request.POST)
+        if message_form.is_valid():
+            message = message_form.save(commit=False)
+            message.sender = request.user
+            message.save()
+            return HttpResponseRedirect(request.path_info) # redirect to the same page to clear the form
+
+    return render(request, 'messages.html', {'received_messages': received_messages, 'sent_messages': sent_messages, 'message_form': message_form})
+
+
+@custom_login_required
+def send_message(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.save()
+            messages.success(request, 'Message sent successfully!')
+            return redirect('messages') # Redirect to the messages page after sending
+    else:
+        form = MessageForm()
+
+    return render(request, 'messages.html', {'form': form})
+
+
     return render(request, 'signup.html', {'form': form})

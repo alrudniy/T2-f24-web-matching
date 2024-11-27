@@ -31,4 +31,17 @@ class CreateUserForm(forms.Form):
 
         if password1 != password2:
             raise forms.ValidationError("Passwords do not match!")
+from django import forms
+from .models import Message  # Import your new Message model
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['recipient', 'subject', 'body']
+        widgets = {
+            'recipient': forms.Select(attrs={'class': 'form-control'}),
+            'subject': forms.TextInput(attrs={'class': 'form-control'}),
+            'body': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
         return cleaned_data

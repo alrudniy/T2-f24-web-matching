@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Messages</h2>
+
+    <h3>Send Message</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ message_form.as_p }}
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+
+    <h3>Received Messages</h3>
+    <ul>
+        {% for message in received_messages %}
+            <li>
+                <strong>From:</strong> {{ message.sender.username }}<br>
+                <strong>Subject:</strong> {{ message.subject }}<br>
+                <strong>Message:</strong> {{ message.body }}<br>
+                <small>{{ message.created_at }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Sent Messages</h3>
+    <ul>
+        {% for message in sent_messages %}
+            <li>
+                <strong>To:</strong> {{ message.recipient.username }}<br>
+                <strong>Subject:</strong> {{ message.subject }}<br>
+                <strong>Message:</strong> {{ message.body }}<br>
+                <small>{{ message.created_at }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
