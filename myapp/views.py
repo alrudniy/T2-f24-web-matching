@@ -91,7 +91,6 @@ def signup_view(request):
                 username=form.cleaned_data.get('username'),
                 firstname=form.cleaned_data.get('firstname'),
                 lastname=form.cleaned_data.get('lastname'),
-                user_type = form.cleaned_data.get('user_type'),
                 password=hashed_password  # Store the hashed password
             )
             session.add(user)
