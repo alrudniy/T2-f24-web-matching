@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF=8">
+<head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Family Promise Matching App</title>
     <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: Arial, sans-serif;
+        }
         .title-bar {
             background-color: green;
             color: white;
@@ -20,21 +26,38 @@
             text-align: center;
             margin-top: 20px;
         }
-        .left-content {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            padding: 10px;
-            font-size: 24px;
+        .background-box {
+            background-color: lightblue;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
         }
-        .right-content {
-            position: absolute;
-            top: 50%;
-            right: 0;
-            transform: translateY(50%);
+        .link-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20%;
+            margin-top: 20px;
+        }
+        .left-link-container, .right-link-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .link-box {
+            display: inline-block;
             padding: 10px;
-            font-size: 24px;
+            border: 2px solid black;
+            background-color: white;
+            color: black;
+            text-decoration: none;
+            text-align: center;
+            width: 150px;
+        }
+        .link-container img {
+            display: block;
+            margin: 0 auto 10px;
+            width: 100px; /* Adjust the width as needed */
+            height: auto;
         }
     </style>
 </head>
@@ -46,17 +69,21 @@
         <img src="https://familypromise.org/wp-content/uploads/2021/03/FP-logo-horiz.png" alt="Family Promise Logo">
     </div>
     <div class="center-content">
-    <h1>Lets Get Started!</h1>
-    <h2>Are you a Tenant or a Landlord?</h2>
+        <div class="background-box">
+            <h1>Lets Get Started!</h1>
+            <h2>Are you a Tenant or a Landlord?</h2>
+        </div>
     </div>
-    <div class="left-content">
-    <br><a href="tenant_login.html">I am a Tenant!</a>
+    <div class="link-container">
+        <div class="left-link-container">
+            <img src="data:image/jpeg;base64,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" alt="Tenant Image">
+            <a href="{% url 'tenant_login' %}" class="link-box">I am a Tenant!</a>
+        </div>
+        <div class="right-link-container">
+            <img src="https://img.freepik.com/premium-photo/keychain-with-landlord-word_698953-5228.jpg" alt="Landlord Image">
+            <a href="{% url 'landlord_login' %}" class="link-box">I am a Landlord!</a>
+        </div>
     </div>
-    <div class="right-content">
-    <a href="landlord_login.html">I am a Landlord!</a>
-    </div>
-
-
 </body>
 </head>
 </html>
