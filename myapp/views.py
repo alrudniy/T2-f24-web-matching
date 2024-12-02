@@ -40,8 +40,8 @@ def login_view(request):
     return render(request, 'login.html', {'form': form})
 
 @custom_login_required
-def pick_a_path(request):
-    return render(request, 'pick_a_path.html')
+def home(request):
+    return render(request, 'home.html')
 
 #def pick_a_path(request):
 #    if 'user_id' not in request.session:
