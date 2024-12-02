@@ -1,89 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>    <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Family Promise Matching App</title>
     <style>
-        body, html {
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            height: 100%;
-            width: 100%;
-            font-family: Arial, sans-serif;
-        }
-        .title-bar {
-            background-color: green;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-        .title-bar img {
-            vertical-align: right;
-            width: 400px;
-            height: 100px;
-        }
-        .center-content {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .background-box {
-            background-color: lightblue;
-            padding: 20px;
-            border-radius: 10px;
-            display: inline-block;
-        }
-        .link-container {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20%;
-            margin-top: 20px;
-        }
-        .left-link-container, .right-link-container {
+            background-image: url('https://images.unsplash.com/photo-1523741543347-870b57723b05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGV8fHx8fHw%3D&auto=format&fit=crop&w=2072&q=80'); /* Replace with your image URL */
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: #333;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
         }
+
+        .title-bar {
+            background-color: rgba(0, 128, 0, 0.7); /* Green with transparency */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Vertically center content */
+        }
+
+        .title-bar img {
+            max-width: 300px; /* Limit the logo width */
+            height: auto;
+            margin-left: 20px; /* Add some spacing between title and logo */
+        }
+
+        .center-content {
+            display: flex;
+            flex-direction: column; /* Align items vertically */
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1; /* Allow center content to expand and fill available space */
+            padding: 20px;
+        }
+
+        .background-box {
+            background-color: rgba(255, 255, 255, 0.8); /* White with transparency */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .link-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding: 0 20%;
+        }
+
         .link-box {
             display: inline-block;
-            padding: 10px;
-            border: 2px solid black;
-            background-color: white;
-            color: black;
+            padding: 15px 25px;
+            border: none;
+            background-color: #4CAF50; /* Green button */
+            color: white;
             text-decoration: none;
             text-align: center;
-            width: 150px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
+
+        .link-box:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
         .link-container img {
             display: block;
             margin: 0 auto 10px;
-            width: 100px; /* Adjust the width as needed */
+            max-width: 150px;
             height: auto;
         }
     </style>
 </head>
 <body>
     <div class="title-bar">
-        <h1>Welcome to the Family Promise Matching App!</h1>
-    </div>
-    <div class="title-bar">
+        <h1 style="margin-right: 20px;">Welcome to the Family Promise Matching App!</h1>
         <img src="https://familypromise.org/wp-content/uploads/2021/03/FP-logo-horiz.png" alt="Family Promise Logo">
     </div>
     <div class="center-content">
         <div class="background-box">
-            <h1>Lets Get Started!</h1>
+            <h1>Let's Get Started!</h1>
             <h2>Are you a Tenant or a Landlord?</h2>
         </div>
     </div>
     <div class="link-container">
-        <div class="left-link-container">
+    <div class="link-container">
+
+        <a href="{% url 'tenant_login' %}" class="link-box">
             <img src="https://img.freepik.com/premium-photo/keychain-with-tenant-word-image_698953-6488.jpg" alt="Tenant Image">
-            <a href="{% url 'tenant_login' %}" class="link-box">I am a Tenant!</a>
-        </div>
-        <div class="right-link-container">
+            I am a Tenant!
+        </a>
+
+        <a href="{% url 'landlord_login' %}" class="link-box">
             <img src="https://img.freepik.com/premium-photo/keychain-with-landlord-word_698953-5228.jpg" alt="Landlord Image">
-            <a href="{% url 'landlord_login' %}" class="link-box">I am a Landlord!</a>
-        </div>
+            I am a Landlord!
+        </a>
+
     </div>
 </body>
-</head>
 </html>
