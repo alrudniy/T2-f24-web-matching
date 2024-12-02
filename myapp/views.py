@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash  # Werkzeug for password hashi
 from .models import session, User  # Import SQLAlchemy session and User model
 from .forms import LoginForm
 from .forms import CreateUserForm
+from django.contrib.auth import logout # Import logout
 from django.contrib.auth.decorators import login_required
 from .decorators import custom_login_required  # Import your custom decorator
 # import hashlib
