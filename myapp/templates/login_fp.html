@@ -91,8 +91,25 @@
     <div class="title-bar">
         <h1 style="margin-right: 20px; max-width: 40%;">Welcome to the Family Promise Matching App!</h1>
         <img src="https://familypromise.org/wp-content/uploads/2021/03/FP-logo-horiz.png" alt="Family Promise Logo">
-        <img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" alt="Profile Icon" style="position: absolute; top: 20px; right: 20px; border-radius: 50%; max-width: 50px; height: auto;">
+        <div class="profile-dropdown" style="position: absolute; top: 15px; right: 15px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" alt="Profile Icon" style="border-radius: 50%; max-width: 40px; height: auto; cursor: pointer;">
+            <span style="cursor: pointer;">&#9660;</span>  </div>
+        <div id="profile-menu" style="display: none; position: absolute; top: 55px; right: 15px; background-color: white; border: 1px solid #ccc; padding: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+            <a href="#">My Profile</a><br>
+            <a href="#">Settings</a><br>
+            <a href="#">Log Out</a>
+        </div>
     </div>
+
+    <script>
+        const dropdown = document.querySelector('.profile-dropdown');
+        const menu = document.getElementById('profile-menu');
+
+        dropdown.addEventListener('click', () => {
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        });
+    </script>
+
     <div class="center-content">
         <div class="background-box">
             <h1>Let's Get Started!</h1>
