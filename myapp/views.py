@@ -31,7 +31,7 @@ def login_view(request):
 
                 messages.success(request, "You have successfully logged in.")
                 logger.info('About to redirect to pick_a_path')
-                return redirect('pick_a_path')
+                return redirect('home')
             else:
                 messages.error(request, 'Invalid username or password')
 
