@@ -125,7 +125,7 @@ features = [
     "Storage space"
 ]
 
-# Store ratings in-memory (could use a database later)
+# Store ratings in-memory (put in database later)
 ratings = {}
 
 # Home page displaying all features
