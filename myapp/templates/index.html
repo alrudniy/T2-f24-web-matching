@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rate House Features</title>
-</head>
+{% extends "navigation_bar.html" %}
+
+{% block title %}Rate House Features{% endblock %}
+
+{% block content %}
 <body>
     {% if messages %}
         <ul>
@@ -26,3 +24,4 @@
     <a href="{% url 'results' %}">See Results</a>
 </body>
 </html>
+{% endblock %}
