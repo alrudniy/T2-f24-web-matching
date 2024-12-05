@@ -87,6 +87,9 @@
     </div>
     <div class="login-container">
         <h2>Landlord Login</h2>
+        {% if error_message %}
+            <p style="color: red;">{{ error_message }}</p>
+        {% endif %}
         <form action="" method="post">
             <div class="form-group">
                 <label for="username">Username:</label>
