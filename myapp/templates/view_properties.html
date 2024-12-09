@@ -9,6 +9,7 @@
                 <p>Address: {{ property.street_address }}, {{ property.city }}</p>
                 <p>Size: {{ property.size_sqft }} sqft</p>
                 <p>Price: ${{ property.price }}</p>
+                <p>Bathrooms: {{ property.bathrooms}}</p>
                 <p>Bedrooms: {{ property.bedrooms }}</p>
                 {% if property.images %}
                     {% for image in property.images %}
