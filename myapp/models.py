@@ -52,6 +52,7 @@ class Property(Base):  # New SQLAlchemy model for Property
     size_sqft = Column(Integer)
     price = Column(sqlalchemy.Numeric(10, 2)) # Using sqlalchemy.Numeric for correct decimal handling
     bedrooms = Column(Integer)
+    bathrooms = Column(Integer)
     user_id = Column(Integer, sqlalchemy.ForeignKey('user.id'))  # Foreign key to User
     street_address = Column(String(255))
     city = Column(String(255))
