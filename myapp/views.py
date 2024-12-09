@@ -244,7 +244,7 @@ def match_properties(request):
     # Get next property to match, excluding properties the user has already matched
     property_to_match = session.query(Property).filter(
         Property.user_id != user_id,
-        ~Property.matches.any(Match.user_id == user_id) # Exclude already matched properties
+        ~Property.matches.any(Match.user_id == user_id)
     ).first()
 
     if not property_to_match:
