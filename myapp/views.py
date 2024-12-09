@@ -1,20 +1,19 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib import messages
-from werkzeug.security import check_password_hash  # Werkzeug for password hashing
-from .models import session, User  # Import SQLAlchemy session and User model
-from .forms import LoginForm, CreateUserForm, PropertyForm # Import PropertyForm
-from .models import session, User, Property, PropertyImage, Match # Import Property, PropertyImage, and Match
-import sqlalchemy
-from django.conf import settings # Import settings
-from django.contrib.auth.decorators import login_required
-from .decorators import custom_login_required  # Import your custom decorator
-# import hashlib
 from werkzeug.security import check_password_hash, generate_password_hash
+import sqlalchemy
+from django.conf import settings
+from .decorators import custom_login_required
+from .forms import LoginForm, CreateUserForm, PropertyForm
+from .models import (
+    session, User, Property, PropertyImage, Match
+)
 
 import logging
+
 logger = logging.getLogger('django')
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -46,13 +45,7 @@ def login_view(request):
 def pick_a_path(request):
     return render(request, 'pick_a_path.html')
 
-#def pick_a_path(request):
-#    if 'user_id' not in request.session:
-#        return redirect('login')  # Redirect if the user is not in the session
-#
-#    return render(request, 'pick_a_path.html')
 
-    
 @custom_login_required
 def scenario1(request):
     return render(request, 'scenario1.html')
@@ -68,13 +61,6 @@ def article1(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
-
-
-import hashlib
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .forms import CreateUserForm
-from .models import session, User  # Assuming User is your SQLAlchemy User model
 
 def signup_view(request):
     if request.method == 'POST':
@@ -102,12 +88,10 @@ def signup_view(request):
     return render(request, 'signup.html', {'form': form})
 
 
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-# List of house features
-features = [
+FEATURES = [
     "Balcony",
     "Multiple floors",
     "Wheelchair access",
@@ -127,26 +111,26 @@ features = [
     "Storage space"
 ]
 
-# Store ratings in-memory (put in database later)
-ratings = {}
+RATINGS = {}
 
-# Home page displaying all features
+
 def index(request):
-    return render(request, 'index.html', {'features': features})
+    return render(request, 'index.html', {'features': FEATURES})
 
-# Page to rate a specific feature
+
 @csrf_exempt
 def rate_feature(request, feature):
     if request.method == 'POST':
         rating = request.POST.get('rating')
-        ratings[feature] = rating
+        RATINGS[feature] = rating
         messages.success(request, f"Rating for {feature} saved successfully!")
         return redirect('index')
     return render(request, 'rate_feature.html', {'feature': feature})
 
-# Results page to display all ratings
+
 def results(request):
-    return render(request, 'results.html', {'ratings': ratings})
+    return render(request, 'results.html', {'ratings': RATINGS})
+
 
 @custom_login_required
 def add_property(request):
@@ -175,10 +159,9 @@ def add_property(request):
                 session.add(property_image)
                 session.commit()
 
-                # Save the uploaded image (ensure your MEDIA_ROOT is configured correctly)
-                # You might need to create the directory if it doesn't exist
+                # Save the uploaded image
                 import os
-                from django.conf import settings
+                from django.conf import settings  # noqa: F401
                 directory = os.path.join(settings.MEDIA_ROOT, 'property_images')
                 os.makedirs(directory, exist_ok=True)
                 with open(os.path.join(directory, image.name), 'wb+') as destination:
@@ -191,34 +174,27 @@ def add_property(request):
     else:
         form = PropertyForm()
     return render(request, 'add_property.html', {'form': form})
-
 @custom_login_required
 def view_properties(request):
     user_id = request.session.get('user_id')
     if not user_id:
         return redirect('login')
     properties = session.query(Property).filter_by(user_id=user_id).all()
-    # Fetch images for each property
     for property_ in properties:
         property_.images = session.query(PropertyImage).filter_by(property_id=property_.id).all()
-
 
     return render(request, 'view_properties.html', {'properties': properties, 'MEDIA_URL': settings.MEDIA_URL})
 
 
 @custom_login_required
 def match_properties(request):
-
     user_id = request.session.get('user_id')
     if not user_id:
         return redirect('login')
 
-    # Logic to fetch a property and handle match/reject
-
-    property_to_match = session.query(Property).filter(Property.user_id != user_id).first() # Example: Get a random property not owned by the user
+    property_to_match = session.query(Property).filter(Property.user_id != user_id).first()
     if not property_to_match:
-        return HttpResponse("No properties available to match.")  # Handle the case where there are no properties to match
-
+        return HttpResponse("No properties available to match.")
 
     if request.method == 'POST':
         action = request.POST.get('action')
@@ -226,12 +202,10 @@ def match_properties(request):
             match = Match(user_id=user_id, property_id=property_to_match.id, timestamp=sqlalchemy.func.now())
             session.add(match)
             session.commit()
-        # Add rejection logic if needed (e.g., store rejections in a separate table)
-        property_to_match = session.query(Property).filter(Property.user_id != user_id).first() # Get the next property after match/reject
+        property_to_match = session.query(Property).filter(Property.user_id != user_id).first()  # Get next property
         if not property_to_match:
-            return HttpResponse("No more properties available to match.")  # Handle the case where there are no properties to match
+            return HttpResponse("No more properties available to match.")
 
-    # Fetch image for the property
     property_to_match.images = session.query(PropertyImage).filter_by(property_id=property_to_match.id).all()
 
     return render(request, 'match_properties.html', {'property': property_to_match, 'MEDIA_URL': settings.MEDIA_URL})
