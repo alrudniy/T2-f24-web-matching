@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Match Properties</h2>
+
+    {% if property %}
+        <h3>{{ property.name }}</h3>
+        <p>Address: {{ property.street_address }}, {{ property.city }}</p>
+        <p>Size: {{ property.size_sqft }} sqft</p>
+        <p>Price: ${{ property.price }}</p>
+        <p>Bathrooms: {{ property.bathrooms}}</p>
+        <p>Bedrooms: {{ property.bedrooms }}</p>
+        {% if property.images %}
+            {% for image in property.images %}
+                <img src="{{ MEDIA_URL }}property_images/{{ image.image_url }}" alt="{{ property.name }} image" width="200">
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="action" value="match">Show Interest</button>
+            <button type="submit" name="action" value="reject">Reject</button>
+        </form>
+    {% else %}
+        <p>No properties available to match.</p>
+    {% endif %}
+{% endblock %}
