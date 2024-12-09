@@ -202,3 +202,33 @@ def view_properties(request):
     from django.conf import settings # Import settings
 
     return render(request, 'view_properties.html', {'properties': properties, 'MEDIA_URL': settings.MEDIA_URL})
+
+
+@custom_login_required
+def match_properties(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+
+    # Logic to fetch a property and handle match/reject
+
+    property_to_match = session.query(Property).filter(Property.user_id != user_id).first() # Example: Get a random property not owned by the user
+    if not property_to_match:
+        return HttpResponse("No properties available to match.")  # Handle the case where there are no properties to match
+
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'match':
+            match = Match(user_id=user_id, property_id=property_to_match.id, timestamp=sqlalchemy.func.now())
+            session.add(match)
+            session.commit()
+        # Add rejection logic if needed (e.g., store rejections in a separate table)
+        property_to_match = session.query(Property).filter(Property.user_id != user_id).first() # Get the next property after match/reject
+        if not property_to_match:
+            return HttpResponse("No more properties available to match.")  # Handle the case where there are no properties to match
+
+    # Fetch image for the property
+    property_to_match.images = session.query(PropertyImage).filter_by(property_id=property_to_match.id).all()
+
+    return render(request, 'match_properties.html', {'property': property_to_match, 'MEDIA_URL': settings.MEDIA_URL})

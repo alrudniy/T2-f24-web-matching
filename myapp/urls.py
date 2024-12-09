@@ -14,4 +14,5 @@ urlpatterns = [
     path('results/', views.results, name='results'),
     path('add_property/', views.add_property, name='add_property'),
     path('view_properties/', views.view_properties, name='view_properties'), # New url path
+    path('match_properties/', views.match_properties, name='match_properties'),
 ]

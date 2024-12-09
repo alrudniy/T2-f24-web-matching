@@ -63,3 +63,11 @@ class PropertyImage(Base):  # New SQLAlchemy model for PropertyImage
     id = Column(Integer, primary_key=True, autoincrement=True)
     property_id = Column(Integer, sqlalchemy.ForeignKey('property.id'))
     image_url = Column(String(255))
+
+
+class Match(Base):
+    __tablename__ = 'match'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, sqlalchemy.ForeignKey('user.id'))
+    property_id = Column(Integer, sqlalchemy.ForeignKey('property.id'))
+    timestamp = Column(sqlalchemy.DateTime)
