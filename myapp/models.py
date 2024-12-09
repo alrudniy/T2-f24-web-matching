@@ -45,3 +45,20 @@ class User(Base):
 # Create a session for the database connection
 Session = sessionmaker(bind=engine)
 session = Session()
+
+class Property(Base):  # New SQLAlchemy model for Property
+    __tablename__ = 'property'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    size_sqft = Column(Integer)
+    price = Column(sqlalchemy.Numeric(10, 2)) # Using sqlalchemy.Numeric for correct decimal handling
+    bedrooms = Column(Integer)
+    user_id = Column(Integer, sqlalchemy.ForeignKey('user.id'))  # Foreign key to User
+    street_address = Column(String(255))
+    city = Column(String(255))
+    name = Column(String(255))
+
+class PropertyImage(Base):  # New SQLAlchemy model for PropertyImage
+    __tablename__ = 'property_images'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    property_id = Column(Integer, sqlalchemy.ForeignKey('property.id'))
+    image_url = Column(String(255))
