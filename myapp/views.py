@@ -5,7 +5,9 @@ from django.contrib import messages
 from werkzeug.security import check_password_hash  # Werkzeug for password hashing
 from .models import session, User  # Import SQLAlchemy session and User model
 from .forms import LoginForm, CreateUserForm, PropertyForm # Import PropertyForm
-from .models import session, User, Property, PropertyImage # Import Property and PropertyImage
+from .models import session, User, Property, PropertyImage, Match # Import Property, PropertyImage, and Match
+import sqlalchemy
+from django.conf import settings # Import settings
 from django.contrib.auth.decorators import login_required
 from .decorators import custom_login_required  # Import your custom decorator
 # import hashlib
