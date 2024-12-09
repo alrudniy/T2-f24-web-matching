@@ -246,8 +246,9 @@ def match_properties(request):
         Property.user_id != user_id,
         ~Property.matches.any(Match.user_id == user_id) # Exclude already matched properties
     ).first()
-        if not property_to_match:
-            return HttpResponse("No more properties available to match.")
+
+    if not property_to_match:
+        return HttpResponse("No more properties available to match.")
 
     property_to_match.images = session.query(PropertyImage).filter_by(
         property_id=property_to_match.id
