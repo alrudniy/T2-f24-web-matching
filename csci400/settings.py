@@ -135,7 +135,7 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/' # New: URL for serving user-uploaded files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # New: Path where user-uploaded files are stored
-    BASE_DIR / "static",
+
 ]
 
 # Default primary key field type
