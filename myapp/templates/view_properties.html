@@ -13,7 +13,7 @@
                 <p>Bedrooms: {{ property.bedrooms }}</p>
                 {% if property.images %}
                     {% for image in property.images %}
-                        <img src="{{ settings.MEDIA_URL }}{{ image.image_url }}" alt="{{ property.name }} image" width="200">
+                        <img src="{{ MEDIA_URL }}property_images/{{ image.image_url }}" alt="{{ property.name }} image" width="200">
                     {% endfor %}
                 {% endif %}
             </li>

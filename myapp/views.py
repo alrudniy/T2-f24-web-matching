@@ -199,4 +199,6 @@ def view_properties(request):
     # Fetch images for each property
     for property_ in properties:
         property_.images = session.query(PropertyImage).filter_by(property_id=property_.id).all()
-    return render(request, 'view_properties.html', {'properties': properties})
+    from django.conf import settings # Import settings
+
+    return render(request, 'view_properties.html', {'properties': properties, 'MEDIA_URL': settings.MEDIA_URL})
