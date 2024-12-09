@@ -239,48 +239,11 @@ def match_properties(request):
             )
             session.add(match)
             session.commit()
+
+        # Get next property outside the 'match' block
         property_to_match = session.query(Property).filter(
             Property.user_id != user_id
-        ).first()  # Get next property
-        if not property_to_match:
-            return HttpResponse("No more properties available to match.")
-
-    property_to_match.images = session.query(PropertyImage).filter_by(
-        property_id=property_to_match.id
-    ).all()
-
-    return render(request, 'match_properties.html', {
-        'property': property_to_match, 'MEDIA_URL': settings.MEDIA_URL
-    })
-
-
-
-
-@custom_login_required
-def match_properties(request):
-    user_id = request.session.get('user_id')
-    if not user_id:
-        return redirect('login')
-
-    property_to_match = session.query(Property).filter(
-        Property.user_id != user_id
-    ).first()
-    if not property_to_match:
-        return HttpResponse("No properties available to match.")
-
-    if request.method == 'POST':
-        action = request.POST.get('action')
-        if action == 'match':
-            match = Match(
-                user_id=user_id,
-                property_id=property_to_match.id,
-                timestamp=sqlalchemy.func.now()
-            )
-            session.add(match)
-            session.commit()
-        property_to_match = session.query(Property).filter(
-            Property.user_id != user_id
-        ).first()  # Get next property
+        ).first()
         if not property_to_match:
             return HttpResponse("No more properties available to match.")
 
