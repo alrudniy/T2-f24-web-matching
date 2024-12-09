@@ -240,10 +240,12 @@ def match_properties(request):
             session.add(match)
             session.commit()
 
-        # Get next property outside the 'match' block
-        property_to_match = session.query(Property).filter(
-            Property.user_id != user_id
-        ).first()
+
+    # Get next property to match, excluding properties the user has already matched
+    property_to_match = session.query(Property).filter(
+        Property.user_id != user_id,
+        ~Property.matches.any(Match.user_id == user_id) # Exclude already matched properties
+    ).first()
         if not property_to_match:
             return HttpResponse("No more properties available to match.")
 
