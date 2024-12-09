@@ -58,6 +58,8 @@ class Property(Base):  # New SQLAlchemy model for Property
     city = Column(String(255))
     name = Column(String(255))
 
+    matches = sqlalchemy.orm.relationship("Match", backref="property")
+
 class PropertyImage(Base):  # New SQLAlchemy model for PropertyImage
     __tablename__ = 'property_images'
     id = Column(Integer, primary_key=True, autoincrement=True)
