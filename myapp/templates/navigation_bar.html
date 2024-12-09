@@ -4,6 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigaton Bar</title>
+    <style>
+    nav {
+        background-color: #333;
+        color: white;
+        padding: 1em;
+    }
+    
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+    }
+    
+    nav ul li {
+        margin-right: 1em;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+    }
+
+    nav ul li a.active {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
