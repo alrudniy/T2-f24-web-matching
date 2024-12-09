@@ -12,4 +12,6 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('rate/<str:feature>/', views.rate_feature, name='rate_feature'),
     path('results/', views.results, name='results'),
+    path('add_property/', views.add_property, name='add_property'),
+    path('view_properties/', views.view_properties, name='view_properties'), # New url path
 ]

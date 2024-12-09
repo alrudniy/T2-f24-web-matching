@@ -145,3 +145,58 @@ def rate_feature(request, feature):
 # Results page to display all ratings
 def results(request):
     return render(request, 'results.html', {'ratings': ratings})
+
+@custom_login_required
+def add_property(request):
+    if request.method == 'POST':
+        form = PropertyForm(request.POST, request.FILES) # Handle image upload
+        if form.is_valid():
+            user_id = request.session.get('user_id')
+            if not user_id:
+                return redirect('login') # Redirect to login if not logged in
+
+            property_ = Property(
+                name=form.cleaned_data['name'],
+                size_sqft=form.cleaned_data['size_sqft'],
+                price=form.cleaned_data['price'],
+                bedrooms=form.cleaned_data['bedrooms'],
+                user_id=user_id,
+                street_address=form.cleaned_data['street_address'],
+                city=form.cleaned_data['city']
+            )
+            session.add(property_)
+            session.commit()
+
+            image = form.cleaned_data.get('image')
+            if image:
+                property_image = PropertyImage(property_id=property_.id, image_url=image.name)
+                session.add(property_image)
+                session.commit()
+
+                # Save the uploaded image (ensure your MEDIA_ROOT is configured correctly)
+                # You might need to create the directory if it doesn't exist
+                import os
+                from django.conf import settings
+                directory = os.path.join(settings.MEDIA_ROOT, 'property_images')
+                os.makedirs(directory, exist_ok=True)
+                with open(os.path.join(directory, image.name), 'wb+') as destination:
+                    for chunk in image.chunks():
+                        destination.write(chunk)
+
+
+            messages.success(request, "Property added successfully!")
+            return redirect('view_properties') # Redirect to view properties page
+    else:
+        form = PropertyForm()
+    return render(request, 'add_property.html', {'form': form})
+
+@custom_login_required
+def view_properties(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+    properties = session.query(Property).filter_by(user_id=user_id).all()
+    # Fetch images for each property
+    for property_ in properties:
+        property_.images = session.query(PropertyImage).filter_by(property_id=property_.id).all()
+    return render(request, 'view_properties.html', {'properties': properties})

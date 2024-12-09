@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Your Properties</h2>
+    <ul>
+        {% for property in properties %}
+            <li>
+                <h3>{{ property.name }}</h3>
+                <p>Address: {{ property.street_address }}, {{ property.city }}</p>
+                <p>Size: {{ property.size_sqft }} sqft</p>
+                <p>Price: ${{ property.price }}</p>
+                <p>Bedrooms: {{ property.bedrooms }}</p>
+                {% if property.images %}
+                    {% for image in property.images %}
+                        <img src="{{ settings.MEDIA_URL }}{{ image.image_url }}" alt="{{ property.name }} image" width="200">
+                    {% endfor %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_property' %}">Add New Property</a>
+{% endblock %}

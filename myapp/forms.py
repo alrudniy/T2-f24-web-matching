@@ -32,3 +32,12 @@ class CreateUserForm(forms.Form):
         if password1 != password2:
             raise forms.ValidationError("Passwords do not match!")
         return cleaned_data
+
+class PropertyForm(forms.Form):
+    name = forms.CharField(max_length=255)
+    size_sqft = forms.IntegerField()
+    price = forms.DecimalField(max_digits=10, decimal_places=2)
+    bedrooms = forms.IntegerField()
+    street_address = forms.CharField(max_length=255)
+    city = forms.CharField(max_length=255)
+    image = forms.ImageField(required=False) # Image field
