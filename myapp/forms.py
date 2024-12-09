@@ -38,6 +38,7 @@ class PropertyForm(forms.Form):
     size_sqft = forms.IntegerField()
     price = forms.DecimalField(max_digits=10, decimal_places=2)
     bedrooms = forms.IntegerField()
+    bathrooms = forms.IntegerField()
     street_address = forms.CharField(max_length=255)
     city = forms.CharField(max_length=255)
     image = forms.ImageField(required=False) # Image field
