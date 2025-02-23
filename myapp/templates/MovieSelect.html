@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+        }
+        button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 20px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+
+        }
+    </style>
+</head>
+<body>
+    <h1>Movie Selection</h1>
+    <p>Thank you for submitting your credentials!</p>
+    <p>We will set up your home movie theater shortly.</p>
+    <p>Name: {{ name }}</p>
+    <p>Genre: {{ genre }}</p>
+    <p>Animated or Live-Action: {{ live_animated }}</p>
+    <p>Favorite Movie: {{ favorite }}</p>
+    <button onclick="location.href='/HomePage'">Continue!</button>
+</body>
+</html>

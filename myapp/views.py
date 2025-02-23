@@ -18,6 +18,37 @@ def user_list(request):
     user_dicts = [{col.name: getattr(user, col.name) for col in User.__table__.columns} for user in users]
     return render(request, 'user_list.html', {'users': user_dicts})
 
+from django.shortcuts import render, redirect
+
+def submit_credentials(request):
+    if request.method == 'POST':
+        # Process form data here
+        name = request.POST.get('name')
+        genre = request.POST.get('genre')
+        live_animated = request.POST.get('live/animated')
+        favorite = request.POST.get('favorite')
+        
+        # Pass the form data to the context if needed
+        context = {
+            'name': name,
+            'genre': genre,
+            'live_animated': live_animated,
+            'favorite': favorite,
+        }
+        
+        # Render the MovieSelect.html template
+        return render(request, 'MovieSelect.html', context)
+    return render(request, 'start.html')
+
+
+def movie_page(request):
+
+    return render(request, 'MoviePage.html',)
+
+def start(request):
+
+    return render(request, 'start.html')
+
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -54,7 +85,11 @@ def pick_a_path(request):
 #
 #    return render(request, 'pick_a_path.html')
 
-    
+
+
+def home_page(request):
+    return render(request, 'HomePage.html')
+
 @custom_login_required
 def scenario1(request):
     return render(request, 'scenario1.html')
